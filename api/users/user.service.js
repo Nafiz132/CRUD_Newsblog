@@ -31,7 +31,19 @@ class User {
       }
     );
   }
-  static getUserById(id, callback) {
+  static getUserByUserEmail(email, callBack) {
+    pool.query(
+      `select * from registration where email = ?`,
+      [email],
+      (err, results, fields) => {
+        if (err) {
+          callBack(error);
+        }
+        return callBack(null, results[0]);
+      }
+    );
+  }
+  getUserById(id, callback) {
     pool.query(
       "SELECT * FROM registration where id=?",
       (error, results, fields) => {
